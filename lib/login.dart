@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'daftar.dart';
+import 'forgot.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -86,14 +88,30 @@ class _LoginPageState extends State<LoginPage> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
                           ),
                           child: Text("Login", style: TextStyle(color: Colors.white)),
-                      ),
+                        ),
                       ),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextButton(onPressed: () {}, child: Text("Daftar Mbanking", style: TextStyle(color: Colors.blue))),
-                          TextButton(onPressed: () {}, child: Text("Lupa password?", style: TextStyle(color: Colors.blue))),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => DaftarPage()),
+                              );
+                            },
+                            child: Text("Daftar Mbanking", style: TextStyle(color: Colors.blue)),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => LupaPasswordPage()),
+                              );
+                            },
+                            child: Text("Lupa password?", style: TextStyle(color: Colors.blue)),
+                          ),
                         ],
                       ),
                     ],

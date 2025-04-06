@@ -1,11 +1,21 @@
+// home.dart (Versi dikembangkan)
 import 'package:flutter/material.dart';
+import 'saldo.dart';
+import 'transfer.dart';
+import 'deposito.dart';
+import 'pembayaran.dart';
+import 'pinjaman.dart';
+import 'mutasi.dart';
+import 'setting.dart';
+import 'scan.dart';
+import 'profile.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Koperasi Undiksha", style: TextStyle(color: Colors.white),),
+        title: Text("Koperasi Undiksha", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
         centerTitle: true,
       ),
@@ -17,7 +27,6 @@ class HomePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  // Kontainer 1: Informasi Nasabah
                   Container(
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -49,7 +58,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 20),
-                  // Kontainer 2: Menu Aksi
                   Container(
                     padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -63,17 +71,16 @@ class HomePage extends StatelessWidget {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       children: [
-                        _buildMenuItem(Icons.account_balance_wallet, "Cek Saldo"),
-                        _buildMenuItem(Icons.send, "Transfer"),
-                        _buildMenuItem(Icons.savings, "Deposito"),
-                        _buildMenuItem(Icons.payment, "Pembayaran"),
-                        _buildMenuItem(Icons.money, "Pinjaman"),
-                        _buildMenuItem(Icons.history, "Mutasi"),
+                        _buildMenuItem(context, Icons.account_balance_wallet, "Cek Saldo", SaldoPage()),
+                        _buildMenuItem(context, Icons.send, "Transfer", TransferPage()),
+                        _buildMenuItem(context, Icons.savings, "Deposito", DepositoPage()),
+                        _buildMenuItem(context, Icons.payment, "Pembayaran", PembayaranPage()),
+                        _buildMenuItem(context, Icons.money, "Pinjaman", PinjamanPage()),
+                        _buildMenuItem(context, Icons.history, "Mutasi", MutasiPage()),
                       ],
                     ),
                   ),
                   SizedBox(height: 20),
-                  // Kontainer 3: Bantuan dan Kontak
                   Container(
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -104,9 +111,9 @@ class HomePage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _buildBottomIcon(Icons.settings, "Setting"),
-                _buildBottomIcon(Icons.qr_code, "Scan"),
-                _buildBottomIcon(Icons.person, "Profile"),
+                _buildBottomNavItem(context, Icons.settings, "Setting", SettingsPage()),
+                _buildBottomNavItem(context, Icons.qr_code, "Scan", ScanPage()),
+                _buildBottomNavItem(context, Icons.person, "Profile", ProfilePage()),
               ],
             ),
           ),
@@ -115,25 +122,31 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildMenuItem(IconData icon, String label) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(icon, size: 40, color: Colors.blue),
-        SizedBox(height: 5),
-        Text(label, textAlign: TextAlign.center),
-      ],
+  Widget _buildMenuItem(BuildContext context, IconData icon, String label, Widget page) {
+    return GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => page)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 40, color: Colors.blue),
+          SizedBox(height: 5),
+          Text(label, textAlign: TextAlign.center),
+        ],
+      ),
     );
   }
 
-  Widget _buildBottomIcon(IconData icon, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 30, color: Colors.white),
-        SizedBox(height: 4),
-        Text(label, style: TextStyle(fontSize: 12, color: Colors.white)),
-      ],
+  Widget _buildBottomNavItem(BuildContext context, IconData icon, String label, Widget page) {
+    return GestureDetector(
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => page)),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 30, color: Colors.white),
+          SizedBox(height: 4),
+          Text(label, style: TextStyle(fontSize: 12, color: Colors.white)),
+        ],
+      ),
     );
   }
 }
