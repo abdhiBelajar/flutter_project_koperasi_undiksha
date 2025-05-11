@@ -1,24 +1,35 @@
-// profile.dart
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String username = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getUsername();
+  }
+
+  void _getUsername() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      username = prefs.getString('username') ?? 'User';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Profil Saya", style: TextStyle(color: Colors.white),),
+        title: Text("Profil Saya", style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.edit, color: Colors.white),
-            onPressed: () {
-              // Fungsi edit dapat ditambahkan di sini
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Fitur edit belum tersedia')),
-              );
-            },
-          )
-        ],
       ),
       body: Padding(
         padding: EdgeInsets.all(16),
@@ -34,21 +45,48 @@ class ProfilePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.blue,
-                  child: Icon(Icons.person, size: 50, color: Colors.white),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blue, // Border color
+                      width: 4, // Border width
+                    ),
+                    borderRadius: BorderRadius.circular(50), // Circular border
+                  ),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.blue,
+                    backgroundImage: AssetImage('images/Abi.jpg'),
+                  ),
                 ),
               ),
               SizedBox(height: 20),
-              Text("Nama:", style: TextStyle(fontSize: 14, color: Colors.grey)),
-              Text("I Made Example", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                "Username:",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              Text(
+                username,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 10),
-              Text("Email:", style: TextStyle(fontSize: 14, color: Colors.grey)),
-              Text("example@undiksha.ac.id", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                "Email:",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              Text(
+                "example@undiksha.ac.id",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
               SizedBox(height: 10),
-              Text("No. HP:", style: TextStyle(fontSize: 14, color: Colors.grey)),
-              Text("081234567890", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              Text(
+                "No. HP:",
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              Text(
+                "081234567890",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),

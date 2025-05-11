@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class LupaPasswordPage extends StatelessWidget {
   final _emailController = TextEditingController();
 
+  LupaPasswordPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

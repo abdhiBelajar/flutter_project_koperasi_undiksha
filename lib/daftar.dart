@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class DaftarPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
+  DaftarPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
